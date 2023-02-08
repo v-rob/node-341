@@ -1,11 +1,13 @@
 // Author: Vincent Robinson
 
+console.log("Hello");
+
 // Convenience functions to get document wide elements.
 const id = name => document.getElementById(name);
 const one = sel => document.querySelector(sel);
 const all = sel => document.querySelectorAll(sel);
 
-const placeOrder = (e) => {
+function placeOrder(e) {
 	// If the notes contain "vegan", alert and stop the rest of the function.
 	if (id("notes").value.indexOf("vegan") >= 0) {
 		alert("Warning: Cheesecakes contain dairy. Reconsider!");
