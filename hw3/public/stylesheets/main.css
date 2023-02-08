@@ -1,0 +1,136 @@
+/* Author: Vincent Robinson */
+
+/* Make the main content centered on the window rather than expanding to the
+ * whole size.
+ */
+body {
+	margin: 0 25%;
+}
+
+/* Make the border and background for the main content. */
+main {
+	background-color: gainsboro;
+	border: 1px solid gray;
+	margin: 20px;
+	padding: 0 30px;
+}
+
+/* Choose some fonts for some elements. */
+body, textarea, #months-dropdown {
+	font-family: "Helvetica", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: "Georgia", serif;
+	font-style: italic;
+}
+
+h1, h2 {
+	text-align: center;
+}
+
+dt {
+	font-weight: bold;
+}
+
+/* Make the image move to the right and make the table and textarea fill most
+ * of the rest of the space. A bad abuse of floats, but whatever.
+ */
+#logo {
+	float: right;
+	width: 30%;
+}
+
+#order-form, #notes {
+	width: 65%;
+}
+
+#order-form {
+	margin-bottom: 10px;
+}
+
+/* Center the dropdown menu. */
+#select-item {
+	text-align: center;
+}
+
+/* Set colors and borders for the table and textarea. */
+textarea {
+	border: 1px solid gray;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+td, th {
+	border: 1px solid gray;
+	padding: 7px;
+}
+
+th {
+	color: gainsboro;
+	background-color: maroon;
+}
+
+td, textarea {
+	background-color: lightyellow;
+}
+
+/* The placed notes should preserve the same whitespace as in the textarea. */
+#placed-notes {
+	white-space: pre;
+}
+
+/* Style the dropdown box of months. */
+#months-box {
+	display: inline-block;
+
+	border: 1px solid gray;
+	padding: 2px;
+
+	background-color: lightyellow;
+}
+
+#months-dropdown {
+	flex-direction: column;
+
+	position: absolute;
+	width: 100px;
+	height: 150px;
+	overflow: scroll;
+
+	user-select: none;
+
+	border: 1px solid gray;
+	margin: 2px 0 0 -3px;
+	padding: 5px;
+
+	font-size: 0.85em;
+	font-weight: normal;
+	font-style: normal;
+
+	background-color: lightyellow;
+}
+
+/* Display the box only when it's being hovered over. */
+#months-box > #months-dropdown {
+	display: none;
+}
+
+#months-box:hover > #months-dropdown {
+	display: flex;
+}
+
+/* Style each individual entry in the dropdown. */
+#months-dropdown > div {
+	margin: 1px 0;
+	padding: 2px;
+}
+
+#months-dropdown > div:hover {
+	font-weight: bold;
+	color: gainsboro;
+
+	background-color: maroon;
+}

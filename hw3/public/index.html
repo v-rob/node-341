@@ -1,0 +1,119 @@
+<!-- Author: Vincent Robinson -->
+<!doctype html>
+<html>
+	<head>
+		<!-- Title for the webpage. -->
+		<title>Cheesecake Order Form</title>
+
+		<!-- Link the external CSS. -->
+		<link rel="stylesheet" href="/stylesheets/main.css" />
+
+		<!-- Load the external script after the page has loaded. -->
+		<script defer src="/javascripts/main.js"></script>
+	</head>
+	<body>
+		<main>
+			<h1>Cheesecake Order Form</h1>
+
+			<!-- Display our cheesecake image from Wikimedia Commons. -->
+			<img
+				id="logo"
+				src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Mondays_at_Il_Forno_-_Cheesecake_with_strawberry_sauce.jpg/320px-Mondays_at_Il_Forno_-_Cheesecake_with_strawberry_sauce.jpg"
+				width="200"
+				height="200"
+				/>
+
+			<div id="order-form">
+				<!-- Put the dropdown and toppings in a table side-by-side. -->
+				<table id="order-form">
+					<tr>
+						<th>Quantity</th>
+						<th>Topping</th>
+					</tr>
+					<tr>
+						<!-- Give the user a choice from one to five slices, and make three the default. -->
+						<td id="select-item">
+							<select id="order-quantity">
+								<option>1</option>
+								<option>2</option>
+								<option selected="true">3</option>
+								<option>4</option>
+								<option>5</option>
+							</select>
+						</td>
+
+						<!-- Put the toppings in a radio button selection. -->
+						<td>
+							<input type="radio" name="topping" id="plain" checked />
+							<label for="plain">Plain</label>
+							<br />
+							<input type="radio" name="topping" id="cherry" />
+							<label for="cherry">Cherry</label>
+							<br />
+							<input type="radio" name="topping" id="chocolate" />
+							<label for="chocolate">Chocolate</label>
+						</td>
+					</tr>
+				</table>
+
+				<!-- Define the notes textarea with its label. -->
+				<label id="notes-label" for="notes">Notes:</label>
+				<br />
+				<textarea
+					id="notes"
+					placeholder="Enter any special instructions here."
+					cols="50"
+					rows="5"
+					></textarea>
+				<br /><br />
+
+				<!-- Place the order button next. -->
+				<button id="order">Order</button>
+			</div>
+			<div id="order-placed" style="display: none">
+				<h2>Thank you! Your order has been placed.</h2>
+				<dl>
+					<dt>Quantity:</dt>
+					<dd id="placed-quantity"></dd>
+					<dt>Topping:</dt>
+					<dd id="placed-topping"></dd>
+					<dt>Notes:</dt>
+					<dd id="placed-notes"></dd>
+				</dl>
+			</div>
+
+			<!--
+				Finally, display our list with the order statistics. Obviously, Dr. Nuxoll made
+				this assignment, since I've seen that cheesecake image before. He's been
+				ordering tons of cheesecake, it seems.
+			-->
+			<h3>
+				Orders for
+				<span>
+					<div id="months-box">
+						<span id="months-text">Jan</span>
+						<div id="months-dropdown">
+							<div>Jan</div>
+							<div>Feb</div>
+							<div>Mar</div>
+							<div>Apr</div>
+							<div>May</div>
+							<div>Jun</div>
+							<div>Jul</div>
+							<div>Aug</div>
+							<div>Sep</div>
+							<div>Oct</div>
+							<div>Nov</div>
+							<div>Dec</div>
+						</div>
+					</div>
+				</div>
+			</h3>
+			<ul>
+				<li>11 cherry</li>
+				<li>17 chocolate</li>
+				<li>31 plain</li>
+			</ul>
+		</main>
+	</body>
+</html>
