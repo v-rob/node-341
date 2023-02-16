@@ -1,7 +1,5 @@
 // Author: Vincent Robinson
 
-console.log("Hello");
-
 // Convenience functions to get document wide elements.
 const id = name => document.getElementById(name);
 const one = sel => document.querySelector(sel);
@@ -39,10 +37,64 @@ function placeOrder(e) {
 // Handle placing the order via the "Order" button.
 id("order").addEventListener("click", placeOrder);
 
+// Given JSON that contains lists of past orders, update the order summary on
+// the page.
+function updateOrders(data) {
+	summaryCounts = all(".summary-count");
+
+	// First, populate our list of totals with the initial value of zero for
+	// each topping.
+	totalCount = {}
+	summaryCounts.forEach(elem => {
+		totalCount[elem.dataset.topping] = 0;
+	});
+
+	// For each order in the array of orders, add the quantity to the running
+	// total for that topping.
+	data.forEach(order => {
+		totalCount[order.topping] += order.quantity;
+	});
+
+	// Display these final totals in the summary.
+	summaryCounts.forEach(elem => {
+		elem.textContent = totalCount[elem.dataset.topping].toString();
+	});
+}
+
+// Performs a POST to the server to get the data about past orders from a
+// specific month.
+function fetchMonthData(month) {
+	$.ajax({
+		url: "/orders",
+		type: "POST",
+		dataType: "json",
+
+		// Tell the server which month to fetch.
+		data: {
+			month: month
+		},
+
+		// On success, update the webpage with the resulting values.
+		success: (data, statusCode, xhr) => {
+			updateOrders(data);
+		},
+
+		// On failure, just display a simple alert message.
+		error: (xhr, textStatus, statusCode) => {
+			alert("Could not fetch orders list");
+		},
+	});
+}
+
 // Bind click listeners for all dropdown elements in the month.
 all("#months-dropdown > div").forEach(item => {
 	item.addEventListener("click", e => {
-		// On click, set the dropdown's text to the selected item's text.
-		id("months-text").textContent = item.textContent;
+		const month = item.textContent;
+
+		// On click, set the dropdown's text to the selected month.
+		id("months-text").textContent = month;
+
+		// Fetch the new data for this month.
+		fetchMonthData(month.toLowerCase());
 	});
 });

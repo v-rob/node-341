@@ -8,7 +8,8 @@
 		<!-- Link the external CSS. -->
 		<link rel="stylesheet" href="/stylesheets/main.css" />
 
-		<!-- Load the external script after the page has loaded. -->
+		<!-- Load jQuery and the external script after the page has loaded. -->
+		<script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 		<script defer src="/javascripts/main.js"></script>
 	</head>
 	<body>
@@ -82,11 +83,7 @@
 				</dl>
 			</div>
 
-			<!--
-				Finally, display our list with the order statistics. Obviously, Dr. Nuxoll made
-				this assignment, since I've seen that cheesecake image before. He's been
-				ordering tons of cheesecake, it seems.
-			-->
+			<!-- Finally, display our list with the order statistics. -->
 			<h3>
 				Orders for
 				<span>
@@ -110,9 +107,9 @@
 				</div>
 			</h3>
 			<ul>
-				<li>11 cherry</li>
-				<li>17 chocolate</li>
-				<li>31 plain</li>
+				<li><span class="summary-count" data-topping="cherry">11</span> cherry</li>
+				<li><span class="summary-count" data-topping="chocolate">17</span> chocolate</li>
+				<li><span class="summary-count" data-topping="plain">31</span> plain</li>
 			</ul>
 		</main>
 	</body>
