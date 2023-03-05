@@ -5,6 +5,33 @@ const id = name => document.getElementById(name);
 const one = sel => document.querySelector(sel);
 const all = sel => document.querySelectorAll(sel);
 
+function getSelectedQuantity() {
+	const select = id("order-quantity");
+	return select.options[select.selectedIndex].text;
+}
+
+function getSelectedTopping() {
+	// Search through all radio buttons in the "topping" group and find the one
+	// that is checked. Return the label for that checkbox.
+	for (radio of all("input[name='topping']")) {
+		if (radio.checked) {
+			return one(`label[for='${radio.id}']`).textContent;
+		}
+	}
+}
+
+function updateSummary() {
+	// Hide the form and display the summary.
+	id("order-form").style.display = "none";
+	id("order-placed").style.display = "block";
+
+	id("placed-quantity").textContent = getSelectedQuantity();
+	id("placed-topping").textContent = getSelectedTopping();
+
+	// Plop the notes directly into the summary.
+	id("placed-notes").textContent = id("notes").value;
+}
+
 function placeOrder(e) {
 	// If the notes contain "vegan", alert and stop the rest of the function.
 	if (id("notes").value.indexOf("vegan") >= 0) {
@@ -12,26 +39,30 @@ function placeOrder(e) {
 		return;
 	}
 
-	// Hide the form and display the summary.
-	id("order-form").style.display = "none";
-	id("order-placed").style.display = "block";
+	// Send this order to the database.
+	$.ajax({
+		url: "/neworder",
+		type: "POST",
 
-	// Set the quantity summary to the value of the relevant select box.
-	const select = id("order-quantity");
-	id("placed-quantity").textContent = select.options[select.selectedIndex].text;
+		// Send this order to the database.
+		data: {
+			month: "MAY",
+			day: 5,
+			quantity: getSelectedQuantity(),
+			topping: getSelectedTopping(),
+			notes: id("notes").value,
+		},
 
-	// Search through all radio buttons in the "topping" group and find the one
-	// that is checked. Find the label for that checkbox and set it in the
-	// summary.
-	all("input[name='topping']").forEach(radio => {
-		if (radio.checked) {
-			const label = one(`label[for='${radio.id}']`);
-			id("placed-topping").textContent = label.textContent;
-		}
-	})
+		// On success, update the webpage with the order summary.
+		success: (data, statusCode, xhr) => {
+			updateSummary();
+		},
 
-	// Plop the notes directly into the summary.
-	id("placed-notes").textContent = id("notes").value;
+		// On failure, just display a simple alert message.
+		error: (xhr, textStatus, statusCode) => {
+			alert("Could not place order");
+		},
+	});
 }
 
 // Handle placing the order via the "Order" button.
@@ -52,7 +83,7 @@ function updateOrders(data) {
 	// For each order in the array of orders, add the quantity to the running
 	// total for that topping.
 	data.forEach(order => {
-		totalCount[order.topping] += order.quantity;
+		totalCount[order.TOPPING] += order.QUANTITY;
 	});
 
 	// Display these final totals in the summary.
